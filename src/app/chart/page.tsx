@@ -39,7 +39,7 @@ export default function Charts() {
     <>
       <div className="max-w-6xl mx-auto">
         <Link href="/">
-        Home
+        BACK TO HOME
         </Link>
       </div>
     <div className="chart-wrapper mx-auto flex max-w-6xl flex-col flex-wrap items-start justify-center gap-6 p-6 sm:flex-row sm:p-8">
