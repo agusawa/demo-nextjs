@@ -23,3 +23,9 @@ jobs:
       - name: Sync build output to S3
         run: |
           aws s3 cp app.zip s3://demo-next-bucket/app.zip
+      - name: Trigger CodeDeploy
+        run: |
+          aws deploy create-deployment \
+            --application-name DemoNextApplication \
+            --deployment-group-name DevelopmentInstances \
+            --s3-location bucket=your-bucket-name,key=app.zip,bundleType=zip
