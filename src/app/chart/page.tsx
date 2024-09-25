@@ -33,7 +33,6 @@ import {
 } from "@/components/ui/chart";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-export const description = "A collection of health charts.";
 
 export default function Charts() {
   return (
