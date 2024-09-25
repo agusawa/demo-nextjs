@@ -28,4 +28,4 @@ jobs:
           aws deploy create-deployment \
             --application-name DemoNextApplication \
             --deployment-group-name DevelopmentInstances \
-            --s3-location bucket=your-bucket-name,key=app.zip,bundleType=zip
+            --s3-location bucket=demo-next-bucket,key=app.zip,bundleType=zip
