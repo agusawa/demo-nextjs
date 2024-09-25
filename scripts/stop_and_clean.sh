@@ -8,4 +8,4 @@ pm2 delete nextjs-app || true
 cd /home/ubuntu/app
 
 # Remove everything except .next and node_modules
-find . -mindepth 1 -maxdepth 1 ! -name '.next' ! -name 'node_modules' -exec rm -rf {} \;
+sudo find . -mindepth 1 -maxdepth 1 ! -name '.next' ! -name 'node_modules' -exec rm -rf {} \;
