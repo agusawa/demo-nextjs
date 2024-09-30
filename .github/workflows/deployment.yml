@@ -55,9 +55,6 @@ jobs:
           aws-region: eu-west-2
       - name: Trigger CodeDeploy deployment
         run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          COMMIT_SHA=${{ github.sha }}
-          FILE_NAME=app-$TIMESTAMP-$COMMIT_SHA.zip
           aws deploy create-deployment \
             --application-name DemoNextApplication \
             --deployment-group-name ProductionDeployment \
