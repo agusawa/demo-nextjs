@@ -33,6 +33,7 @@ jobs:
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           COMMIT_SHA=${{ github.sha }}
           aws s3 cp app.zip s3://demo-next-bucket/app-$TIMESTAMP-$COMMIT_SHA.zip
+          aws s3 cp s3://demo-next-bucket/app-$TIMESTAMP-$COMMIT_SHA.zip s3://demo-next-bucket/app-latest.zip
       - name: Trigger CodeDeploy deployment
         run: |
           aws deploy create-deployment \
