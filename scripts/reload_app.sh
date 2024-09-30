@@ -3,6 +3,9 @@
 # Navigate to the app directory
 cd /home/ubuntu
 
+# Stop the PM2 process to free up the directory
+pm2 stop landing-page || true
+
 # Backup the current live version by renaming the symlink
 if [ -L "app_live" ]; then
   mv app_live app_old_$(date +%Y%m%d%H%M%S)
