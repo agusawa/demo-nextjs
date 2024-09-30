@@ -11,3 +11,7 @@ mkdir /home/ubuntu/app_new
 
 # Ensure the new directory is writable by the ubuntu user
 chmod -R 775 /home/ubuntu/app_new
+
+# Stop the PM2 process to free up the directory
+pm2 stop landing-page || true
+pm2 delete landing-page || true
