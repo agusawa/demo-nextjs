@@ -32,11 +32,15 @@ jobs:
         run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           COMMIT_SHA=${{ github.sha }}
-          aws s3 cp app.zip s3://demo-next-bucket/app-$TIMESTAMP-$COMMIT_SHA.zip
-          aws s3 cp s3://demo-next-bucket/app-$TIMESTAMP-$COMMIT_SHA.zip s3://demo-next-bucket/app-latest.zip
+          FILE_NAME=app-$TIMESTAMP-$COMMIT_SHA.zip
+          aws s3 cp app.zip s3://demo-next-bucket/$FILE_NAME.zip
+      - name: Copy latest version on S3
+        run: |
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          aws s3 cp s3://demo-next-bucket/$FILE_NAME.zip s3://demo-next-bucket/app-latest.zip  
       - name: Trigger CodeDeploy deployment
         run: |
           aws deploy create-deployment \
             --application-name DemoNextApplication \
             --deployment-group-name DevelopmentInstances \
-            --s3-location bucket=demo-next-bucket,key=app-$TIMESTAMP-$COMMIT_SHA.zip,bundleType=zip
+            --s3-location bucket=demo-next-bucket,key=$FILE_NAME.zip,bundleType=zip
