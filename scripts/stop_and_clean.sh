@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Stop the PM2 process to free up the directory
-pm2 stop landing-page || true
-pm2 delete landing-page || true
-
-# Navigate to the app directory
-sudo chown -R ubuntu:ubuntu /home/ubuntu/app_live
+cd /home/ubuntu
 
 # Stop the PM2 process to free up the directory
+pm2 stop 0 || true
+pm2 delete 0 || true
+
+sudo chown -R ubuntu:ubuntu ./app_live
 rm -rf ./app_live
