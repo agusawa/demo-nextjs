@@ -15,3 +15,7 @@ npm install
 
 # Build the Next.js app
 npm run build
+
+# Ensure ownership of the .next folder again in case npm modifies it
+sudo chown -R ubuntu:ubuntu /home/ubuntu/app/.next
+
