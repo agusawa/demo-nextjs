@@ -43,6 +43,7 @@ jobs:
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           COMMIT_SHA=${{ github.sha }}
           FILE_NAME=app-$TIMESTAMP-$COMMIT_SHA.zip
+          echo "FILE_NAME=$FILE_NAME" >> $GITHUB_ENV
           aws s3 cp --quiet app.zip s3://demo-next-bucket/$FILE_NAME
       - name: Copy latest version to S3
         run: |
@@ -58,4 +59,4 @@ jobs:
           aws deploy create-deployment \
             --application-name DemoNextApplication \
             --deployment-group-name ProductionDeployment \
-            --s3-location bucket=demo-next-bucket,key=$FILE_NAME,bundleType=zip
+            --s3-location bucket=demo-next-bucket,key=${{ env.FILE_NAME }},bundleType=zip
