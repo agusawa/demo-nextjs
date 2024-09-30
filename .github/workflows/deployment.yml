@@ -36,18 +36,6 @@ jobs:
         with:
           name: app-zip
           path: app.zip
-      - name: Set timestamp and commit_sha
-        id: set-timestamp
-        run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          COMMIT_SHA=${{ github.sha }}
-          FILE_NAME=app-$TIMESTAMP-$COMMIT_SHA.zip
-          echo "file_name=$FILE_NAME" >> $GITHUB_ENV
-  upload-to-s3:
-    runs-on: ubuntu-latest
-    needs: build
-    environment: Development
-    steps:
       - name: Download build artifact from previous job
         uses: actions/download-artifact@v3
         with:
@@ -61,14 +49,13 @@ jobs:
           aws-region: eu-west-2
       - name: Upload artifact to S3
         run: |
-          aws s3 cp app.zip s3://demo-next-bucket/${{ needs.build.outputs.file_name }}
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          COMMIT_SHA=${{ github.sha }}
+          FILE_NAME=app-$TIMESTAMP-$COMMIT_SHA.zip
+          aws s3 cp app.zip s3://demo-next-bucket/$FILE_NAME
       - name: Copy latest version to S3
         run: |
-          aws s3 cp s3://demo-next-bucket/${{ needs.build.outputs.file_name }} s3://demo-next-bucket/app-latest.zip
-  deploy:
-    runs-on: ubuntu-latest
-    needs: upload-to-s3
-    steps:
+          aws s3 cp s3://demo-next-bucket/$FILE_NAME s3://demo-next-bucket/app-latest.zip
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -83,4 +70,4 @@ jobs:
           aws deploy create-deployment \
             --application-name DemoNextApplication \
             --deployment-group-name DevelopmentInstances \
-            --s3-location bucket=demo-next-bucket,key=${{ needs.build.outputs.file_name }},bundleType=zip
+            --s3-location bucket=demo-next-bucket,key=$FILE_NAME,bundleType=zip
