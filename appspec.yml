@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/app
+    destination: /home/ubuntu/app_live
 hooks:
   BeforeInstall:
     - location: scripts/stop_and_clean.sh
@@ -13,6 +13,6 @@ hooks:
       timeout: 300
       runas: ubuntu
   ApplicationStart:
-    - location: scripts/start_app.sh
+    - location: scripts/reload_app.sh
       timeout: 300
       runas: ubuntu
