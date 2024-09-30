@@ -22,6 +22,7 @@ jobs:
           path: |
             ~/.npm
             ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/node_modules
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
@@ -42,7 +43,7 @@ jobs:
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           COMMIT_SHA=${{ github.sha }}
           FILE_NAME=app-$TIMESTAMP-$COMMIT_SHA.zip
-          # aws s3 cp --quiet app.zip s3://demo-next-bucket/$FILE_NAME
+          aws s3 cp --quiet app.zip s3://demo-next-bucket/$FILE_NAME
       - name: Copy latest version to S3
         run: |
           aws s3 cp --quiet app.zip s3://demo-next-bucket/app_latest.zip
