@@ -5,6 +5,7 @@ cd /home/ubuntu
 
 # Backup the current live version by renaming the symlink
 if [ -L "app_live" ]; then
+  unlink app_live
   mv app_live app_old_$(date +%Y%m%d%H%M%S)
 fi
 
