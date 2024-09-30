@@ -12,7 +12,7 @@ mv ./app_new ./app_live
 cd ./app_live
 
 # Start the PM2 process
-pm2 start npm --name "landing-page" -- start
+pm2 start npm --name "landing-page" -- run aws:start
 
 # Save the PM2 process list to ensure it restarts on reboot
 pm2 save
