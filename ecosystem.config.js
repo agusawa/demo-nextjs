@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "landing-page",
       script: "npm",
-      args: "start",
+      args: "run aws:start",
       instances: 1,
       exec_mode: 'cluster',
       autorestart: true,
