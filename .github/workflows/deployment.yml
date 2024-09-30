@@ -31,16 +31,6 @@ jobs:
         run: npm run build
       - name: Prepare deployment artifact
         run: zip -r app.zip .
-      - name: Upload build artifact for later use
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-zip
-          path: app.zip
-      - name: Download build artifact from previous job
-        uses: actions/download-artifact@v3
-        with:
-          name: app-zip
-          path: ./
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
