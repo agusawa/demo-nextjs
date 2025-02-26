@@ -5,12 +5,22 @@ on:
 permissions:
   contents: read
   id-token: write
+env:
+  REPO_SECRET: ${{ secrets.REPO_SECRET }}
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Check if secret is set
+        run: |
+          if [ -z "$REPO_SECRET" ]; then
+            echo "REPO_SECRET is not set"
+          else
+            echo "REPO_SECRET is set"
+          fi
+      
       # - shell: bash
       #   env:
       #     REPO_SECRET: ${{ secrets.REPO_SECRET }}
