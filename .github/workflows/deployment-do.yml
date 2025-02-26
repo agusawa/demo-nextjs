@@ -1,0 +1,22 @@
+name: Deploy Next.js site to Pages
+on:
+  push:
+    branches: [do]
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Development
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy to DigitalOcean Droplet
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.KEY}}
+          script: |
+            scp -r ./README.md ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/deployer
